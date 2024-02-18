@@ -28,6 +28,11 @@ const getServiceName = (url) => {
   return parts[parts.length - 1];
 };
 
+// Function to format error message
+const formatErrorMessage = (serviceName) => {
+  return `Sorry, ${serviceName} service is down. Please try again in a bit!`;
+};
+
 // Endpoint to process user order (simulated)
 app.get('/processOrder/:userId/:amount', async (req, res) => {
   const { userId, amount } = req.params;
@@ -35,7 +40,7 @@ app.get('/processOrder/:userId/:amount', async (req, res) => {
   // Check if circuit is open
   if (isCircuitOpen) {
     const serviceName = getServiceName(failedService);
-    res.status(500).json({ error: `Sorry, ${serviceName} service is down. Please try again later.` });
+    res.status(500).json({ error: formatErrorMessage(serviceName) });
     return;
   }
 
@@ -82,7 +87,7 @@ app.get('/processOrder/:userId/:amount', async (req, res) => {
     }
 
     const serviceName = getServiceName(failedService);
-    res.status(500).json({ error: `Sorry, ${serviceName} service is down. Please try again later.` });
+    res.status(500).json({ error: formatErrorMessage(serviceName) });
   }
 });
 
