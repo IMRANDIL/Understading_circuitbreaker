@@ -1,17 +1,20 @@
+// userService.js
 const express = require('express');
 const app = express();
 const PORT = 3001;
 
-app.get('/authenticate', (req, res) => {
-  // Dummy authentication logic
-  const isAuthenticated = Math.random() < 0.8; // 50% chance of success
-  if (isAuthenticated) {
-    res.send('Authentication successful');
-  } else {
-    res.status(401).send('Authentication failed');
-  }
+// Dummy user data
+const users = [
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' },
+  { id: 3, name: 'Charlie' }
+];
+
+// Endpoint to retrieve users
+app.get('/users', (req, res) => {
+  res.json(users);
 });
 
 app.listen(PORT, () => {
-  console.log(`Auth Service listening at http://localhost:${PORT}`);
+  console.log(`UserService listening at http://localhost:${PORT}`);
 });
